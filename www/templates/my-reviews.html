@@ -1,0 +1,57 @@
+<ion-view view-title="Mie recensioni">
+
+    <ion-content>
+        <div ng-if="loggedIn">
+            <h4 ng-if="loading" style="text-align: center; margin-top: 20px;">
+                Caricamento...
+            </h4>
+            <h4 ng-if="reviews.length == 0 && !loading" style="text-align: center; margin-top: 20px;">
+                Nessuna recensione inviata
+            </h4>
+            <div class="list">
+                <a class="item" ng-repeat="item in reviews" ng-class="['even','odd'][$index%2]">
+                    <div class="card-header" ng-click="openStructure(item)">
+                        <div class="sa-avatar">
+                            <ng-md-icon icon="place" size="48" style="fill: #20555b"></ng-md-icon>
+                        </div>
+                        <div class="sa-title">
+                            <span ng-if="item.Structure.name" ng-bind="item.Structure.name" class="card-title"></span> 
+                            <span ng-if="!item.Structure.name" ng-bind="item.Structure.opendata_type | capitalize" class="card-title"></span> 
+                            <br>
+                            <span ng-if="item.Structure.address" ng-bind="item.Structure.address"></span>
+                            <span ng-if="!item.Structure.address">Lecce, Italia</span>
+                        </div>
+                    </div>
+
+                    <div class="card-footer" ng-if="item.Review.comment">
+                        <h3 ng-bind="item.Review.comment"></h3>
+                    </div>
+
+                    <div class="card-footer">
+                        <ng-md-icon icon="accessible" size="24" class="sa-accessibility-icon"></ng-md-icon>
+                        <div class="rating" ng-if="item.Review.accessibility">
+                            <span class="ion-star"></span>
+                            <span class="ion-star"></span>
+                            <span class="ion-star"></span>
+                            <span class="ion-star"></span>
+                            <span class="ion-star"></span>
+                            <div class="hide-stars" ng-style="{'width' : getPercentage(item.Review.accessibility)}"></div>
+                        </div>
+                    </div>
+                    <div class="card-footer" style="min-height: 36px; line-height: 36px;">
+                        <div ng-bind="printDate(item.Review.created)" class="reviews-list-date" style="float: left"></div>
+                        <div style="float: right">
+                            <button class="button button-small icon-left ion-compose button-sonoautonomo" ng-click="openModalReview(item, item.Review)">Modifica</button>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="account-page-nologin" ng-if="!loggedIn">
+            <div style="text-align: center; padding: 20px">
+                <button class="button button-block button-sonoautonomo" ng-click="openModalLogin()">Accedi</button>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

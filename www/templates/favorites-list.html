@@ -1,0 +1,53 @@
+<ion-view view-title="Preferiti">
+
+    <ion-content>
+        <div ng-if="loggedIn">
+            <h4 ng-if="loading" style="text-align: center; margin-top: 20px;">
+                Caricamento...
+            </h4>
+            <h4 ng-if="structures.length == 0 && !loading" style="text-align: center; margin-top: 20px;">
+                Nessun luogo salvato
+            </h4>
+            <div class="list">
+                <a class="item" ng-repeat="item in structures" ng-click="openStructure(item)" ng-class="['even', 'odd'][$index % 2]">
+                    <div class="card-header">
+                        <div class="sa-avatar">
+                            <ng-md-icon icon="place" size="48" style="fill: #20555b"></ng-md-icon>
+                        </div>
+                        <div class="sa-title">
+                            <span ng-if="item.Structure.name" ng-bind="item.Structure.name" class="card-title"></span> 
+                            <span ng-if="!item.Structure.name" ng-bind="item.Structure.opendata_type | capitalize" class="card-title"></span> 
+                            <br>
+                            <span ng-if="item.Structure.address" ng-bind="item.Structure.address"></span>
+                            <span ng-if="!item.Structure.address">Lecce, Italia</span>
+                        </div>
+                    </div>
+
+                    <div class="card-footer">
+                        <ng-md-icon icon="accessible" size="24" class="sa-average-icon"></ng-md-icon>
+                        <div class="rating" ng-if="item.Structure.accessibility_avg">
+                            <span class="ion-star"></span>
+                            <span class="ion-star"></span>
+                            <span class="ion-star"></span>
+                            <span class="ion-star"></span>
+                            <span class="ion-star"></span>
+                            <div class="hide-stars" ng-style="{'width' : getPercentage(item.Structure.accessibility_avg)}"></div>
+                        </div>
+                        <div class="rating" ng-if="!item.Structure.accessibility_avg">Nessuna recensione</div>
+                        <div class="clearfix"></div>
+                        <!--                            <div style="text-align: right" ng-if="item.Structure.date">
+                                                        Salvato il <span ng-bind="new Date()"></span>
+                                                    </div>-->
+                    </div>
+                </a>
+            </div>
+
+        </div>
+
+        <div class="account-page-nologin" ng-if="!loggedIn">
+            <div style="text-align: center; padding: 20px">
+                <button class="button button-block button-sonoautonomo" ng-click="openModalLogin()">Accedi</button>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

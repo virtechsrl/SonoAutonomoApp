@@ -1,0 +1,40 @@
+<ion-modal-view>
+    <ion-header-bar class="bar-sonoautonomo">
+        <button class="button button-icon button-clear ion-android-close" ng-click="closeModalLogin()"></button>
+        <h1 class="title">Login</h1>
+    </ion-header-bar>
+
+    <ion-content class="padding login-page">
+        <div class="hero no-header flat">
+            <div class="content">
+                <div class="app-icon">
+                    <img src="img/logo.png" class="logo">
+                </div>
+            </div>
+        </div>
+
+        <form ng-submit="login(data)">
+            <div class="list list-inset" style="border-radius: 10px">
+                <label class="item item-input" >
+                    <i class="icon ion-person"></i>
+                    &nbsp &nbsp
+                    <input type="text" placeholder="Username" ng-model="data.username">
+
+                </label>
+                <label class="item item-input" style="border-top: 1px solid #ddd">
+                    <i class="icon ion-key"></i>
+                    &nbsp &nbsp
+                    <input type="password"  placeholder="Password" ng-model="data.password">
+                </label>
+            </div>
+
+            <button class="button button-block button-sonoautonomo" type="submit">Accedi</button>
+        </form>
+
+        <div style="margin-top: 40px">
+            <span style="line-height: 20px">Non sei ancora registrato?</span> <br>
+            <button class="button button-small icon-left ion-compose button-sonoautonomo" ng-click="signupFromLogin()">Registrati</button>
+        </div>
+    </ion-content>
+
+</ion-modal-view>

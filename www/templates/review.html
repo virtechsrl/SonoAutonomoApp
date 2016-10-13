@@ -1,0 +1,131 @@
+<ion-modal-view>
+    <ion-header-bar class="bar-sonoautonomo">
+        <button class="button button-icon button-clear ion-close-round" ng-click="closeModalReview()"></button>
+        <h1 class="title">Scrivi una recensione</h1>
+    </ion-header-bar>
+    <ion-content>
+        <ion-spinner class="ajax-loader" ng-if="loading"></ion-spinner>
+        <div class="item card-item">
+            <div class="card stable-bg">
+                <div class="item item-text-wrap">
+                    <div class="card-header">
+                        <div class="sa-avatar">
+                            <ng-md-icon icon="place" size="48" style="fill: #20555b"></ng-md-icon>
+                        </div>
+                        <div class="sa-title">
+                            <span ng-if="structure.Structure.name" ng-bind="structure.Structure.name" class="card-title"></span> 
+                            <span ng-if="!structure.Structure.name" ng-bind="structure.Structure.opendata_type | capitalize" class="card-title"></span> 
+                            <br>
+                            <span ng-if="structure.Structure.address" ng-bind="structure.Structure.address"></span>
+                            <span ng-if="!structure.Structure.address">
+                                <span>Lecce, Italia</span>
+                            </span>
+                        </div>
+                        <div class="sa-section">
+                            <span class="div-label">Livello di accessibilità</span>
+                            <ul class="sa-list-icon">
+                                <li><button ng-class="{'sa-checked': accessibility > 0}" class="button icon ion-star" ng-click="setAccessibility(1)"></button></li>
+                                <li><button ng-class="{'sa-checked': accessibility > 1}" class="button icon ion-star" ng-click="setAccessibility(2)"></button></li>
+                                <li><button ng-class="{'sa-checked': accessibility > 2}" class="button icon ion-star" ng-click="setAccessibility(3)"></button></li>
+                                <li><button ng-class="{'sa-checked': accessibility > 3}" class="button icon ion-star" ng-click="setAccessibility(4)"></button></li>
+                                <li><button ng-class="{'sa-checked': accessibility > 4}" class="button icon ion-star" ng-click="setAccessibility(5)"></button></li>
+                            </ul>
+                        </div>
+                        <div class="sa-section">
+                            <span class="div-label">Numero gradini di ingresso</span>
+                            <ul class="sa-list-icon">
+                                <li><button ng-class="{'sa-checked': entryStairs == 0}" class="button" ng-click="setEntryStairs(0)">0</button></li>
+                                <li><button ng-class="{'sa-checked': entryStairs == 1}" class="button" ng-click="setEntryStairs(1)">1</button></li>
+                                <li><button ng-class="{'sa-checked': entryStairs == 2}" class="button" ng-click="setEntryStairs(2)">2</button></li>
+                                <li><button ng-class="{'sa-checked': entryStairs == 3}" class="button" ng-click="setEntryStairs(3)">3+</button></li>
+                            </ul>
+                        </div>
+                        <div class="sa-section">
+                            <span class="div-label">Vota il bagno</span>
+                            <ul class="sa-list-icon">
+                                <li><button ng-class="{'sa-checked': bathroom > 0}" class="button icon ion-star" ng-click="setBathroomRate(1)"></button></li>
+                                <li><button ng-class="{'sa-checked': bathroom > 1}" class="button icon ion-star" ng-click="setBathroomRate(2)"></button></li>
+                                <li><button ng-class="{'sa-checked': bathroom > 2}" class="button icon ion-star" ng-click="setBathroomRate(3)"></button></li>
+                                <li><button ng-class="{'sa-checked': bathroom > 3}" class="button icon ion-star" ng-click="setBathroomRate(4)"></button></li>
+                                <li><button ng-class="{'sa-checked': bathroom > 4}" class="button icon ion-star" ng-click="setBathroomRate(5)"></button></li>
+                            </ul>
+                        </div>
+                        <div class="sa-section">
+                            <label class="item item-div item-stacked-label sa-textarea">
+                                <span class="div-label">Commenti</span>
+                                <textarea placeholder="Scrivi il tuo commento" rows="8" ng-model="textarea.comment">{{ textarea.comment}}</textarea>
+                            </label>
+                        </div>
+                        <div class="sa-section">
+                            <ul class="list">
+
+                                <li class="item item-toggle">
+                                    Spazio
+                                    <label class="toggle toggle-balanced">
+                                        <input type="checkbox" ng-model="options.spacious">
+                                        <div class="track">
+                                            <div class="handle"></div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <li class="item item-toggle">
+                                    Posto tranquillo
+                                    <label class="toggle toggle-balanced">
+                                        <input type="checkbox" ng-model="options.quiet">
+                                        <div class="track">
+                                            <div class="handle"></div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <li class="item item-toggle">
+                                    Secondo ingresso
+                                    <label class="toggle toggle-balanced">
+                                        <input type="checkbox" ng-model="options.second_entry">
+                                        <div class="track">
+                                            <div class="handle"></div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <li class="item item-toggle">
+                                    Parcheggio
+                                    <label class="toggle toggle-balanced">
+                                        <input type="checkbox" ng-model="options.parking">
+                                        <div class="track">
+                                            <div class="handle"></div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <li class="item item-toggle">
+                                    Ben illuminato
+                                    <label class="toggle toggle-balanced">
+                                        <input type="checkbox" ng-model="options.well_lit">
+                                        <div class="track">
+                                            <div class="handle"></div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <li class="item item-toggle">
+                                    Cane guida
+                                    <label class="toggle toggle-balanced">
+                                        <input type="checkbox" ng-model="options.guide_dog">
+                                        <div class="track">
+                                            <div class="handle"></div>
+                                        </div>
+                                    </label>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card-footer">
+                        <div style="text-align: right">
+                            <button class="button button-small icon-left ion-paper-airplane button-sonoautonomo" ng-if="!update" ng-click="sendReview()">Invia</button>
+                            <button class="button button-small icon-left ion-paper-airplane button-sonoautonomo" ng-if="update" ng-click="sendReview()">Aggiorna</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-modal-view>

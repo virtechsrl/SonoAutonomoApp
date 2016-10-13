@@ -1,0 +1,104 @@
+<ion-view view-title="{{title}}">
+    <ion-content class="structure-page">
+        <div class="item card-item">
+            <div class="card stable-bg">
+                <div class="item item-text-wrap">
+                    <div class="card-header">
+                        <div class="sa-avatar">
+                            <ng-md-icon icon="place" size="48" style="fill: #20555b"></ng-md-icon>
+                        </div>
+                        <div class="sa-title">
+                            <span ng-if="structure.Structure.name" ng-bind="structure.Structure.name | capitalize" class="card-title"></span> 
+                            <span ng-if="!structure.Structure.name" ng-bind="structure.Structure.opendata_type | capitalize" class="card-title"></span> 
+                            <br>
+                            <span ng-if="structure.Structure.address" ng-bind="structure.Structure.address"></span>
+                            <span ng-if="!structure.Structure.address">
+                                <span>Lecce, Italia</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="card-footer sa-margin-left">
+                        <div class="card-footer-header">Categorie</div>
+                        <ul>
+                            <li ng-repeat="cat in structure.StructureCategory">
+                                <span ng-bind="cat.name"></span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="card-footer sa-margin-left">
+                        <div class="card-footer-header">Livello di accessibilità</div>
+                        <ng-md-icon icon="accessible" size="24" class="sa-average-icon"></ng-md-icon>
+                        <div class="rating" ng-if="structure.Structure.accessibility_avg">
+                            <span class="ion-star"></span>
+                            <span class="ion-star"></span>
+                            <span class="ion-star"></span>
+                            <span class="ion-star"></span>
+                            <span class="ion-star"></span>
+                            <div class="hide-stars" ng-style="{'width' : getPercentage(structure.Structure.accessibility_avg)}"></div>
+                        </div>
+                        <div class="rating" style="padding-top: 3px;" ng-if="!structure.Structure.accessibility_avg">
+                            Nessuna recensione
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="card-footer sa-margin-left">
+                        <div class="card-footer-header">Numero di gradini di ingresso</div>
+                        <ng-md-icon icon="accessible" size="24" class="sa-average-icon"></ng-md-icon>
+                        <div class="rating" ng-if="structure.Structure.entry_stairs_avg">
+                            <span ng-class="{'sa-checked': structure.Structure.entry_stairs_avg == 0}">0</span>
+                            <span ng-class="{'sa-checked': structure.Structure.entry_stairs_avg > 0 && structure.Structure.entry_stairs_avg <= 1}">1</span>
+                            <span ng-class="{'sa-checked': structure.Structure.entry_stairs_avg > 1 && structure.Structure.entry_stairs_avg <= 2}">2</span>
+                            <span ng-class="{'sa-checked': structure.Structure.entry_stairs_avg > 2}">3+</span>
+                        </div>
+                        <div class="rating" style="padding-top: 3px;" ng-if="!structure.Structure.entry_stairs_avg">
+                            Nessuna recensione
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="card-footer sa-margin-left">
+                        <div class="card-footer-header">Bagno</div>
+                        <ng-md-icon icon="wc" size="24" class="sa-average-icon"></ng-md-icon>
+                        <div class="rating" ng-if="structure.Structure.bathroom_avg">
+                            <span class="ion-star"></span>
+                            <span class="ion-star"></span>
+                            <span class="ion-star"></span>
+                            <span class="ion-star"></span>
+                            <span class="ion-star"></span>
+                            <div class="hide-stars" ng-style="{'width' : getPercentage(structure.Structure.bathroom_avg)}"></div>
+                        </div>
+                        <div class="rating" style="padding-top: 3px;" ng-if="!structure.Structure.bathroom_avg">
+                            Nessuna recensione
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    
+                    <div class="card-footer sa-margin-left" 
+                         ng-if="structure.Structure.spacious_tot || structure.Structure.quiet_tot 
+                                     || structure.Structure.second_entry_tot || structure.Structure.parking_tot 
+                                     || structure.Structure.well_lit_tot || structure.Structure.guide_dog_tot">
+                        <div class="card-footer-header">Servizi</div>
+                        <ul>
+                            <li><span ng-if="structure.Structure.spacious_tot > 0">Spazioso</span></li>
+                            <li><span ng-if="structure.Structure.quiet_tot > 0">Posto tranquillo</span></li>
+                            <li><span ng-if="structure.Structure.second_entry_tot > 0">Secondo ingresso</span></li>
+                            <li><span ng-if="structure.Structure.parking_tot > 0">Parcheggio</span></li>
+                            <li><span ng-if="structure.Structure.well_lit_tot > 0">Ben illuminato</span></li>
+                            <li><span ng-if="structure.Structure.guide_dog_tot > 0">Cane guida</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="card-footer">
+                        <div style="text-align: right">
+                            <button class="button button-small icon-left ion-location button-sonoautonomo" ng-click="showMap(structure)">Vedi sulla mappa</button>
+                            <button class="button button-small icon-left ion-plus-round button-sonoautonomo" ng-click="openModalReview(structure)">Recensione</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,65 @@
+<ion-modal-view>
+    <ion-header-bar class="bar-sonoautonomo">
+        <button class="button button-icon button-clear ion-android-close" ng-click="closeModalSignup()"></button>
+        <h1 class="title">Registrazione</h1>
+    </ion-header-bar>
+
+    <ion-content class="padding signup-page">
+        <div class="hero flat">
+            <div class="content">
+                <div class="app-icon">
+                    <img src="img/logo.png" class="logo">
+                </div>
+            </div>
+        </div>
+
+        <div class="item item-icon-left assertive" ng-if="error_messages && !signupForm.$valid">
+            <i class="icon ion-alert-circled"></i>
+            <div class="error-label" ng-show="signupForm.first_name.$error.required">Il campo <b>Nome</b> è obbligatorio</div>
+            <div class="error-label" ng-show="signupForm.last_name.$error.required">Il campo <b>Cognome</b> è obbligatorio</div>
+            <div class="error-label" ng-show="signupForm.email.$error.required">Il campo <b>Email</b> è obbligatorio</div>
+            <div class="error-label" ng-show="signupForm.password.$error.required">Il campo <b>Password</b> è obbligatorio</div>
+            <div class="error-label" ng-show="signupForm.confirm_password.required">Il campo <b>Conferma password</b> è obbligatorio</div>
+
+            <div class="error-label" ng-show="signupForm.email.$error.email"><b>Email</b> non valida</div>
+            <div class="error-label" ng-show="signupForm.password.$error.minlength || signupForm.password.$error.maxlength">
+                La lunghezza della <b>Password</b> deve essere compresa tra 8 e 15 caratteri 
+            </div>
+            <div class="error-label" ng-show="signupForm.confirm_password.$error.noMatch">Le <b>Password</b> non coincidono</div>
+        </div>
+
+        <form name="signupForm">
+
+            <div class="list">
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Nome</span>
+                    <input type="text" name="first_name" placeholder="Nome" ng-model="data.first_name" required>
+                </label>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Cognome</span>
+                    <input type="text" name="last_name" placeholder="Cognome" ng-model="data.last_name" required>
+                </label>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Email</span>
+                    <input type="email" name="email" placeholder="Email" ng-model="data.email" required>
+                </label>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Password</span>
+                    <input type="password" name="password" placeholder="Password" ng-model="data.password" required ng-minlength="8" ng-maxlength="15">
+                </label>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Conferma password</span>
+                    <input type="password" name="confirm_password" placeholder="Conferma password" ng-model="data.confirm_password"
+                           compare-password="data.password">
+                </label>
+            </div>
+
+            <div class="padding">
+                <button class="button button-block button-sonoautonomo" ng-click="signup(data, signupForm)">Registrati</button>
+            </div>
+
+        </form>
+
+    </ion-content>
+
+</ion-modal-view>

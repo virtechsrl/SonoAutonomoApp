@@ -1,0 +1,55 @@
+<ion-view view-title="{{title}}">
+
+    <ion-content>
+        <div class="sa-structure-header">
+            <div class="item item-text-wrap">
+                <div class="card-header">
+                    <div class="sa-avatar">
+                        <ng-md-icon icon="place" size="48" style="fill: #20555b"></ng-md-icon>
+                    </div>
+                    <div class="sa-title">
+                        <span ng-if="structure.name" ng-bind="structure.name | capitalize" class="card-title"></span> 
+                        <span ng-if="!structure.name" ng-bind="structure.opendata_type | capitalize" class="card-title"></span> 
+                        <br>
+                        <span ng-if="structure.address" ng-bind="structure.address"></span>
+                        <span ng-if="!structure.address">
+                            <span>Lecce, Italia</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="list reviews-by-location-list">
+            <a class="item item-avatar" ng-repeat="rev in reviews| limitTo: 5">
+                <div class="avatar account-avatar-list">
+                    <i class="icon ion-person"></i>
+                </div>
+                <h3 ng-if="rev.comment" ng-bind="rev.comment"></h3>
+                <div ng-if="!rev.comment" style="color: #ccc">(Nessun commento)</div>
+                <ul class="sa-list-icon">
+                    <li><i ng-class="{'sa-checked': rev.accessibility > 0}" class="icon ion-star"></i></li>
+                    <li><i ng-class="{'sa-checked': rev.accessibility > 1}" class="icon ion-star"></i></li>
+                    <li><i ng-class="{'sa-checked': rev.accessibility > 2}" class="icon ion-star"></i></li>
+                    <li><i ng-class="{'sa-checked': rev.accessibility > 3}" class="icon ion-star"></i></li>
+                    <li><i ng-class="{'sa-checked': rev.accessibility > 4}" class="icon ion-star"></i></li>
+                </ul>
+                <div><span style="font-weight: bold">Gradini di ingresso</span>: <span ng-bind="rev.entry_stairs"></span></div>
+                <div><span style="font-weight: bold">Bagno</span>: <span ng-bind="rev.bathroom"></span></div>
+                <div style="float: left" ng-if="rev.spacious > 0 || rev.quiet > 0
+                             || rev.second_entry > 0 || rev.parking > 0
+                             || rev.well_lit > 0 || rev.guide_dog > 0">
+                    <span style="font-weight: bold">Altri servizi: </span>
+                    <div ng-if="rev.spacious > 0">- Spazioso</div>
+                    <div ng-if="rev.quiet > 0">- Silenzioso</div>
+                    <div ng-if="rev.second_entry > 0">- Ingresso secondario</div>
+                    <div ng-if="rev.parking > 0">- Parcheggio</div>
+                    <div ng-if="rev.well_lit > 0">- Illuminazione</div>
+                    <div ng-if="rev.guide_dog > 0">- Cane guida</div>
+                </div>
+                <div ng-bind="printDate(rev.created)" class="reviews-list-date"></div>
+            </a>
+        </div>
+
+    </ion-content>
+</ion-view>

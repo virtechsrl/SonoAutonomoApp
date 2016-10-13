@@ -1,0 +1,29 @@
+<ion-view view-title="Sono Autonomo">
+    <div class="list search-bar has-header">
+        <div class="item item-input-inset">
+            <label class="item-input-wrapper">
+                <i class="icon ion-ios-search-strong placeholder-icon"></i>
+                <form action="." ng-submit="$event.preventDefault();
+                        search()">
+                    <input type="search" placeholder="Cerca in Sono Autonomo" ng-model="filter.searchText" value="{{filter.searchText}}">
+                </form>
+            </label>
+        </div>
+    </div>
+    <ion-content class="home-page has-subheader">
+        <div class="content" ng-click="getCurrentPosition()">
+            <div class="list">
+                <div class="item item-icon-left">
+                    <i class="icon ion-ios-location" style="color: #666"></i>
+                    <span ng-bind="current_location"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="list home-categories">
+            <a class="item" ng-repeat="option in categories" ng-click="search(option.id_category, option.name)" ng-class="['odd', 'even'][$index % 2]">
+                <h2 ng-bind="option.name"></h2>
+            </a>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,20 @@
+<ion-tabs class="tabs-icon-top tabs-color-active-positive">
+
+    <ion-tab title="Home" icon-off="ion-ios-home-outline" icon-on="ion-ios-home" ng-click="goToView('home', null, true)" class="ink-sonoautonomo">
+        <ion-nav-view name="tab-home"></ion-nav-view>
+    </ion-tab>
+
+    <ion-tab title="Preferiti" icon-off="ion-android-favorite-outline" icon-on="ion-android-favorite" ng-click="goToView('favorites', null, true)" class="ink-sonoautonomo">
+        <ion-nav-view name="tab-favorites"></ion-nav-view>
+    </ion-tab>
+    
+    <ion-tab title="Mie recensioni" icon-off="ion-ios-compose-outline" icon-on="ion-ios-compose" ng-click="goToView('my-reviews', null, true)" class="ink-sonoautonomo">
+        <ion-nav-view name="tab-my-reviews"></ion-nav-view>
+    </ion-tab>
+
+    <ion-tab title="Account" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear" ng-click="goToView('my-account', null, true)" class="ink-sonoautonomo">
+        <ion-nav-view name="tab-account"></ion-nav-view>
+    </ion-tab>
+
+
+</ion-tabs>

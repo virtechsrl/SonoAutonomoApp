@@ -1,0 +1,61 @@
+<ion-side-menus enable-menu-with-back-views="false">
+    <ion-side-menu-content>
+        <ion-nav-bar class="bar-sonoautonomo" ng-class="{expanded: isExpanded, 'has-header-fab-left': hasHeaderFabLeft, 'has-header-fab-right': hasHeaderFabRight}" align-title="left">
+            <ion-nav-back-button class="no-text">
+            </ion-nav-back-button>
+            <ion-nav-buttons side="left">
+                <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+                </button>
+            </ion-nav-buttons>
+        </ion-nav-bar>
+        <ion-nav-view name="fabContent"></ion-nav-view>
+        <ion-nav-view name="menuContent" ng-class="{expanded: isExpanded}" ></ion-nav-view>
+    </ion-side-menu-content>
+    <ion-side-menu side="left">
+        <ion-header-bar class="expanded side-menu-header">
+            <img src="img/logo.png" class="logo">
+            <span style="position: absolute; bottom: 5px; right: 10px;" ng-bind="loginData.email"></span>
+        </ion-header-bar>
+        <ion-content class="stable-bg has-expanded-header">
+
+            <div class="list" style="color: #666">
+
+                <div class="item item-divider" style="height: 0; line-height: 0; min-height: 0; padding: 0;">
+                </div>
+
+                <a class="item item-icon-left" ng-click="goToView('home', null, true)" >
+                    <ng-md-icon icon="view_list" class="sidemenu-icon"></ng-md-icon>
+                    <div>Home</div>
+                </a>
+
+                <a class="item item-icon-left" ng-click="goToView('map', null, true)" >
+                    <ng-md-icon icon="map" class="sidemenu-icon"></ng-md-icon>
+                    <div>Mappa</div>
+                </a>
+<!--
+                <div class="item item-divider">
+                    Management
+                </div>-->
+
+                <a class="item item-icon-left" ng-click="goToView('settings', null, true)" >
+                    <ng-md-icon icon="settings" class="sidemenu-icon"></ng-md-icon>
+                    <div>Impostazioni</div>
+                </a>
+                <a class="item item-icon-left" ng-click="goToView('statistics', null, true)" ng-if="loginData.authLevel == 'admin'">
+                    <ng-md-icon icon="equalizer" class="sidemenu-icon"></ng-md-icon>
+                    <div>Statistiche</div>
+                </a>
+                <a class="item item-icon-left" ng-click="goToView('login', null, true)" ng-if="!loggedIn">
+                    <ng-md-icon icon="login" class="sidemenu-icon"></ng-md-icon>
+                    <div>Login</div>
+                </a>
+                <a class="item item-icon-left" ng-click="logout()" ng-if="loggedIn">
+                    <ng-md-icon icon="logout" class="sidemenu-icon"></ng-md-icon>
+                    <div>Logout</div>
+                </a>
+
+            </div>
+
+        </ion-content>
+    </ion-side-menu>
+</ion-side-menus>

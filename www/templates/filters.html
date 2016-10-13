@@ -1,0 +1,41 @@
+<ion-modal-view>
+    <ion-header-bar class="bar-sonoautonomo">
+        <button class="button button-icon button-clear ion-android-close" ng-click="closeModalFilters(true, false)"></button>
+        <h1 class="title">Aggiungi filtri</h1>
+
+    </ion-header-bar>
+    <ion-content scroll="true" class="padding filter-page">
+
+        <ion-list>
+            <div class="item item-divider">
+                Ordina per
+            </div>
+            <ion-radio ng-click="setOrderBy('distance')" ng-model="order_by" value="distance">Distanza</ion-radio>
+            <ion-radio ng-click="setOrderBy('ranking')" ng-model="order_by" value="ranking">Classifica</ion-radio>
+        </ion-list>
+
+        <div class="list list-inset">
+            <label class="item item-input">
+                <i class="icon ion-search placeholder-icon"></i>
+                <input type="text" placeholder="Ricerca" ng-model="filter.searchText" value="{{filter.searchText}}">
+            </label>
+        </div>
+
+        <ion-list>
+            <div class="item item-divider">
+                Seleziona categorie
+            </div>
+            <ion-checkbox ng-repeat="option in categories" ng-model="option.checked" value="{{option.id_category}}">{{option.name}}</ion-checkbox>
+        </ion-list>
+
+
+    </ion-content>
+    <div class="tabs tabs-icon-left">
+        <a class="tab-item button ink-sonoautonomo" style="width: 100%; max-width: 100%;" ng-click="closeModalFilters(false, true)">
+            <i class="icon ion-ios-close-empty"></i> Reset filtri
+        </a>
+        <a class="tab-item button ink-sonoautonomo" style="width: 100%; max-width: 100%;" ng-click="closeModalFilters(false, false)">
+            <i class="icon ion-ios-checkmark-empty"></i> Applica
+        </a>
+    </div>
+</ion-modal-view>

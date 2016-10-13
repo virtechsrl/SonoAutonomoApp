@@ -1,0 +1,38 @@
+<ion-view view-title="Account">
+    <ion-content>
+        <div ng-if="loggedIn">
+            <div class="hero" style="background-color: #F6F5F1">
+                <div class="content">
+                    <div class="avatar account-avatar">
+                        <i class="icon ion-person" style="font-size: 48px; color: #aaa;"></i>
+                    </div>
+                    <h3><span ng-bind="loginData.firstName"></span> <span ng-bind="loginData.lastName"></span></h3>
+                    <h4 ng-bind="loginData.email"></h4>
+                </div>
+            </div>
+<!--            <div class="tabs tabs-icon-top static">
+                <a ui-sref="app.activity" class="tab-item ink-sonoautonomo">
+                    <i class="icon ion-person"></i> Profilo
+                </a>
+                <a ui-sref="app.friends" class="tab-item ink-sonoautonomo">
+                    <i class="icon ion-ios-gear"></i> Impostazioni
+                </a>
+                <a ui-sref="app.gallery" class="tab-item ink-sonoautonomo">
+                    <i class="icon ion-images"></i> Foto
+                </a>
+            </div>-->
+
+            <div class="logout-button">
+                <button class="button button-block button-sonoautonomo" ng-click="logout()">Logout</button>
+            </div>
+        </div>
+
+        <div class="account-page-nologin" ng-if="!loggedIn">
+            <div style="text-align: center; padding: 20px">
+                <button class="button button-block button-sonoautonomo" ng-click="openModalLogin()">Accedi</button>
+            </div>
+        </div>
+
+    </ion-content>
+
+</ion-view>

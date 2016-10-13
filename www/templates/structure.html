@@ -1,0 +1,131 @@
+<ion-view view-title="{{title}}">
+    <ion-content class="structure-page">
+        <div class="sa-structure-header">
+            <div class="item item-text-wrap">
+                <div class="card-header">
+                    <div class="sa-avatar">
+                        <ng-md-icon icon="place" size="48" style="fill: #20555b"></ng-md-icon>
+                    </div>
+                    <div class="sa-title">
+                        <span ng-if="structure.Structure.name" ng-bind="structure.Structure.name | capitalize" class="card-title"></span> 
+                        <span ng-if="!structure.Structure.name" ng-bind="structure.Structure.opendata_type | capitalize" class="card-title"></span> 
+                        <br>
+                        <span ng-if="structure.Structure.address" ng-bind="structure.Structure.address"></span>
+                        <span ng-if="!structure.Structure.address">
+                            <span>Lecce, Italia</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tabs tabs-icon-top static sa-structure-tabs">
+            <a ng-click="showMap(structure)" class="tab-item ink-sonoautonomo tab-item-active">
+                <i class="icon ion-location"></i> Mappa
+            </a>
+            <a ng-click="setFavorite(structure)" class="tab-item ink-sonoautonomo tab-item-active" >
+                <i class="icon" ng-class="{'ion-android-favorite': isFavorite, 'ion-android-favorite-outline': !isFavorite}"></i>
+                <span ng-if="isFavorite">Salvato</span>
+                <span ng-if="!isFavorite">Salva</span>
+            </a>
+            <a ng-click="openModalReview(structure)" class="tab-item ink-sonoautonomo tab-item-active">
+                <i class="icon ion-compose"></i> Recensione
+            </a>
+        </div>
+
+        <div class="title-separator">Categorie</div>
+        <div class="card-footer sa-margin-left">
+            <ul>
+                <li ng-repeat="cat in structure.StructureCategory">
+                    <span ng-bind="cat.name"></span>
+                </li>
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+        <div class="title-separator">Livello di accessibilità</div>
+        <div class="card-footer sa-margin-left">
+            <ng-md-icon icon="accessible" size="24" class="sa-average-icon"></ng-md-icon>
+            <div class="rating" ng-if="structure.Structure.accessibility_avg">
+                <span class="ion-star"></span>
+                <span class="ion-star"></span>
+                <span class="ion-star"></span>
+                <span class="ion-star"></span>
+                <span class="ion-star"></span>
+                <div class="hide-stars" ng-style="{'width' : getPercentage(structure.Structure.accessibility_avg)}"></div>
+            </div>
+            <div class="rating" style="padding-top: 3px;" ng-if="!structure.Structure.accessibility_avg">
+                Nessuna recensione
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="title-separator">Numero di gradini di ingresso</div>
+        <div class="card-footer sa-margin-left">
+            <ng-md-icon icon="accessible" size="24" class="sa-average-icon"></ng-md-icon>
+            <div class="rating" ng-if="structure.Structure.entry_stairs_avg">
+                <span ng-class="{'sa-checked': structure.Structure.entry_stairs_avg == 0}">0</span>
+                <span ng-class="{'sa-checked': structure.Structure.entry_stairs_avg > 0 && structure.Structure.entry_stairs_avg <= 1}">1</span>
+                <span ng-class="{'sa-checked': structure.Structure.entry_stairs_avg > 1 && structure.Structure.entry_stairs_avg <= 2}">2</span>
+                <span ng-class="{'sa-checked': structure.Structure.entry_stairs_avg > 2}">3+</span>
+            </div>
+            <div class="rating" style="padding-top: 3px;" ng-if="!structure.Structure.entry_stairs_avg">
+                Nessuna recensione
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="title-separator">Bagno</div>
+        <div class="card-footer sa-margin-left">
+            <ng-md-icon icon="wc" size="24" class="sa-average-icon"></ng-md-icon>
+            <div class="rating" ng-if="structure.Structure.bathroom_avg">
+                <span class="ion-star"></span>
+                <span class="ion-star"></span>
+                <span class="ion-star"></span>
+                <span class="ion-star"></span>
+                <span class="ion-star"></span>
+                <div class="hide-stars" ng-style="{'width' : getPercentage(structure.Structure.bathroom_avg)}"></div>
+            </div>
+            <div class="rating" style="padding-top: 3px;" ng-if="!structure.Structure.bathroom_avg">
+                Nessuna recensione
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="title-separator">Servizi</div>
+        <div class="card-footer sa-margin-left" 
+             ng-if="structure.Structure.spacious_tot > 0 || structure.Structure.quiet_tot > 0
+                             || structure.Structure.second_entry_tot > 0 || structure.Structure.parking_tot > 0
+                             || structure.Structure.well_lit_tot > 0 || structure.Structure.guide_dog_tot > 0">
+            <ul>
+                <li><span ng-if="structure.Structure.spacious_tot > 0">Spazioso</span></li>
+                <li><span ng-if="structure.Structure.quiet_tot > 0">Posto tranquillo</span></li>
+                <li><span ng-if="structure.Structure.second_entry_tot > 0">Secondo ingresso</span></li>
+                <li><span ng-if="structure.Structure.parking_tot > 0">Parcheggio</span></li>
+                <li><span ng-if="structure.Structure.well_lit_tot > 0">Ben illuminato</span></li>
+                <li><span ng-if="structure.Structure.guide_dog_tot > 0">Cane guida</span></li>
+            </ul>
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="title-separator">Recensioni (<span ng-bind="structure.Review.length"></span>)</div>
+        <div class="card-footer">
+            <div class="list reviews-list">
+                <a class="item item-avatar" ng-repeat="rev in structure.Review| limitTo: 5" ng-click="showReviews(structure.Review, structure.Structure)">
+                    <div class="avatar account-avatar-list">
+                        <i class="icon ion-person"></i>
+                    </div>
+                    <h3 ng-if="rev.comment" ng-bind="rev.comment"></h3>
+                    <div ng-if="!rev.comment" style="color: #ccc">(Nessun commento)</div>
+                    <ul class="sa-list-icon">
+                        <li><i ng-class="{'sa-checked': rev.accessibility > 0}" class="icon ion-star"></i></li>
+                        <li><i ng-class="{'sa-checked': rev.accessibility > 1}" class="icon ion-star"></i></li>
+                        <li><i ng-class="{'sa-checked': rev.accessibility > 2}" class="icon ion-star"></i></li>
+                        <li><i ng-class="{'sa-checked': rev.accessibility > 3}" class="icon ion-star"></i></li>
+                        <li><i ng-class="{'sa-checked': rev.accessibility > 4}" class="icon ion-star"></i></li>
+                    </ul>
+                    <div ng-bind="printDate(rev.created)" class="reviews-list-date"></div>
+                </a>
+            </div>
+            <div style="text-align: center; padding: 0 20px 20px" ng-if="structure.Review.length > 5">
+                <button class="button button-block button-sonoautonomo" ng-click="showReviews(structure.Review, structure.Structure)">Vedi le altre recensioni</button>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
